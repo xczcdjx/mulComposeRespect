@@ -39,7 +39,7 @@ fun ListCom(
                 Text("c++")
             }
             TextButton(goDetail){
-                Text("to detail")
+                Text("to detail111")
             }
         }
     }
