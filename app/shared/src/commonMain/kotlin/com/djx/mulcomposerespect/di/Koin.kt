@@ -18,4 +18,12 @@ fun initApplication(config: KoinAppDeclaration? = null): KoinApplication {
 }
 
 @Suppress("unused")
-fun initKoin() = initApplication {}
+fun initKoin() {
+    initApplication {}
+}
+
+object KoinInitializer {
+    fun start() {
+        initApplication {}
+    }
+}
