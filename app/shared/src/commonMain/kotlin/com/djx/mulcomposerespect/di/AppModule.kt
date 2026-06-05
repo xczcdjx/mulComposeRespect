@@ -1,13 +1,9 @@
 package com.djx.mulcomposerespect.di
 
-import org.koin.core.annotation.ComponentScan
+import com.djx.mulcomposerespect.di.modules.ViewModelModule
 import org.koin.core.annotation.Module
 
-
-/*val appModule = module {
-    viewModel<HomeViewModel>()
-}*/
-
-@Module
-@ComponentScan("com.djx.mulcomposerespect")
+@Module(includes = [
+    ViewModelModule::class,
+])
 class AppModule

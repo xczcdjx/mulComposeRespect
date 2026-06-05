@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
+import org.koin.core.annotation.Single
 
-@KoinViewModel
+//@KoinViewModel
+@Single
 class HomeViewModel(
 
 ) : ViewModel() {
