@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.koin.compiler) // 注解编译
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -20,37 +20,38 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm()
-    
+
     js {
         browser()
     }
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
-    
+
     androidLibrary {
-       namespace = "com.djx.mulcomposerespect.app.shared"
-       compileSdk = libs.versions.android.compileSdk.get().toInt()
-       minSdk = libs.versions.android.minSdk.get().toInt()
-    
-       compilerOptions {
-           jvmTarget = JvmTarget.JVM_11
-       }
-       androidResources {
-           enable = true
-       }
-       withHostTest {
-           isIncludeAndroidResources = true
-       }
+        namespace = "com.djx.mulcomposerespect.app.shared"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+        androidResources {
+            enable = true
+        }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             api(projects.core)
@@ -64,8 +65,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
             // koin
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core) // core
+            api(project.dependencies.platform(libs.koin.bom))
+            api(libs.koin.core) // core
             implementation(libs.koin.compose) // inject
             implementation(libs.koin.core.viewmodel) // ViewModel 核心能力
             implementation(libs.koin.compose.viewmodel) // viewmodel
@@ -80,12 +81,32 @@ kotlin {
             implementation(libs.wrappers.browser)
         }
     }
+    // KSP Common sourceSet
+    sourceSets.named("commonMain").configure {
+        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+    }
 }
-
+ksp {
+    arg("KOIN_DEFAULT_MODULE", "true")
+}
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
-}
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
 
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspJvm", libs.koin.ksp.compiler)
+
+    add("kspIosArm64", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+
+    add("kspJs", libs.koin.ksp.compiler)
+    add("kspWasmJs", libs.koin.ksp.compiler)
+}
+tasks.matching {
+    it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata"
+}.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
 compose.desktop {
     application {
         mainClass = "com.djx.mulcomposerespect.MainKt"

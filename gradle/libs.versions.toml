@@ -20,8 +20,8 @@ material3 = "1.11.0-alpha07"
 
 koin-bom = "4.2.0"
 koin-annotations = "2.0.0"
-koin-compiler-plugin = "1.0.0"
 composeHotReload = "1.2.0-alpha01"
+ksp = "2.3.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -57,6 +57,7 @@ koin-core-viewmodel = { module = "io.insert-koin:koin-core-viewmodel" }
 koin-ktor = { module = "io.insert-koin:koin-ktor" }
 koin-test = { module = "io.insert-koin:koin-test" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
+koin-ksp-compiler = {module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotations"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -68,4 +69,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
-koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-compiler-plugin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
