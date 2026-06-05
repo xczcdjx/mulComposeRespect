@@ -1,4 +1,4 @@
-package com.djx.mulcomposerespect.viewmodel.list
+package com.djx.mulcomposerespect.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
-
 
 @KoinViewModel
 class HomeViewModel(

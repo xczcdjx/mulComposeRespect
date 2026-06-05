@@ -72,6 +72,8 @@ kotlin {
             implementation(libs.koin.core.viewmodel) // ViewModel 核心能力
             implementation(libs.koin.compose.viewmodel) // viewmodel
             implementation(libs.koin.annotations) // 注解包
+            // navigation
+            implementation(libs.navigation.compose)
             // ktorfit
 
         }

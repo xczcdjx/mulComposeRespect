@@ -11,11 +11,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.djx.mulcomposerespect.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun KoinViewmodelCom(
-    vm: HomeViewModel = koinViewModel()
+fun ListCom(
+    vm: HomeViewModel = koinViewModel(),
+    goDetail:()-> Unit
 ) {
     LaunchedEffect(Unit) {
         vm.toast.collect { msg -> print("Toast: $msg") }
@@ -35,6 +37,9 @@ fun KoinViewmodelCom(
                 vm.add(1)
             }) {
                 Text("c++")
+            }
+            TextButton(goDetail){
+                Text("to detail")
             }
         }
     }
