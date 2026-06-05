@@ -25,7 +25,7 @@ kotlin {
     }
 // KSP Common sourceSet
     sourceSets.commonMain {
-        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        kotlin.srcDir("build/generated/ksp/metadata")
     }
     jvm()
 
