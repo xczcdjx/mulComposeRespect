@@ -7,7 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.ksp)
+//    alias(libs.plugins.ksp)
+    alias(libs.plugins.koin.compiler)
 }
 
 kotlin {
@@ -82,31 +83,31 @@ kotlin {
         }
     }
     // KSP Common sourceSet
-    sourceSets.named("commonMain").configure {
-        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
-    }
+//    sourceSets.named("commonMain").configure {
+//        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+//    }
 }
-ksp {
-    arg("KOIN_DEFAULT_MODULE", "true")
-}
+//ksp {
+//    arg("KOIN_DEFAULT_MODULE", "true")
+//}
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspJvm", libs.koin.ksp.compiler)
-
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-
-    add("kspJs", libs.koin.ksp.compiler)
-    add("kspWasmJs", libs.koin.ksp.compiler)
+//    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+//
+//    add("kspAndroid", libs.koin.ksp.compiler)
+//    add("kspJvm", libs.koin.ksp.compiler)
+//
+//    add("kspIosArm64", libs.koin.ksp.compiler)
+//    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+//
+//    add("kspJs", libs.koin.ksp.compiler)
+//    add("kspWasmJs", libs.koin.ksp.compiler)
 }
-tasks.matching {
-    it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata"
-}.configureEach {
-    dependsOn("kspCommonMainKotlinMetadata")
-}
+//tasks.matching {
+//    it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata"
+//}.configureEach {
+//    dependsOn("kspCommonMainKotlinMetadata")
+//}
 compose.desktop {
     application {
         mainClass = "com.djx.mulcomposerespect.MainKt"

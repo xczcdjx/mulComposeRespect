@@ -19,6 +19,7 @@ logback = "1.5.32"
 material3 = "1.11.0-alpha07"
 
 koin-bom = "4.2.0"
+koin-plugin = "1.0.0"
 koin-annotations = "2.0.0"
 composeHotReload = "1.2.0-alpha01"
 ksp = "2.3.2"
@@ -70,3 +71,4 @@ ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
