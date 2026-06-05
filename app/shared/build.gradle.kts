@@ -9,8 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.ksp)
-//    alias(libs.plugins.koin.compiler)
+    alias(libs.plugins.koin.compiler)
 }
 
 kotlin {
@@ -22,10 +21,6 @@ kotlin {
             baseName = "Shared"
             isStatic = true
         }
-    }
-// KSP Common sourceSet
-    sourceSets.commonMain {
-        kotlin.srcDir("build/generated/ksp/metadata")
     }
     jvm()
 
@@ -91,26 +86,6 @@ kotlin {
 }
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspJvm", libs.koin.ksp.compiler)
-
-//    add("kspIosArm64", libs.koin.ksp.compiler)
-//    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-//
-//    add("kspJs", libs.koin.ksp.compiler)
-//    add("kspWasmJs", libs.koin.ksp.compiler)
-}
-ksp {
-    arg("KOIN_DEFAULT_MODULE","true")
-}
-
-tasks.matching {
-    it.name.startsWith("ksp") &&
-            it.name != "kspCommonMainKotlinMetadata"
-}.configureEach {
-    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }
 
 

@@ -1,19 +1,19 @@
 package com.djx.mulcomposerespect.di
 
 import org.koin.core.KoinApplication
-import org.koin.core.context.startKoin
+import org.koin.core.annotation.KoinApplication as KoinApplicationAnnotation
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.includes
-import org.koin.ksp.generated.module
+import org.koin.plugin.module.dsl.startKoin
+
+@KoinApplicationAnnotation
+class KoinApp
 
 fun initApplication(config: KoinAppDeclaration? = null): KoinApplication {
-    return startKoin {
+    return startKoin<KoinApp> {
         includes(config)
-        modules(
-            AppModule().module,
-        )
     }
 }
 
-@Suppress("unused") //using in iOS
+@Suppress("unused")
 fun initKoin() = initApplication {}
