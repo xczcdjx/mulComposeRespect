@@ -2,20 +2,18 @@ package com.djx.mulcomposerespect.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.djx.mulcomposerespect.app.AppState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
-import org.koin.core.annotation.Single
 
-//@KoinViewModel
-@Single
+@KoinViewModel
 class HomeViewModel(
-
+    private val appState: AppState
 ) : ViewModel() {
-
     private val _title = MutableStateFlow("KoinViewModel")
     private var _count = MutableStateFlow(0)
     private var _toast = MutableSharedFlow<String>()
@@ -34,6 +32,7 @@ class HomeViewModel(
 
     fun add(i: Int) {
         _count.value += i;
+        appState.setToken("count: ${_count.value}")
         viewModelScope.launch {
             _toast.emit("当前 count = ${_count.value}")
         }

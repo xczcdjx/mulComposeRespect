@@ -10,15 +10,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.djx.mulcomposerespect.app.AppState
 import com.djx.mulcomposerespect.viewmodel.HomeViewModel
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DetailCom(vm: HomeViewModel = koinViewModel(),) {
+    val appState: AppState = koinInject()
+    val token by appState.token.collectAsState()
     val count by vm.count.collectAsState()
     Scaffold(topBar = {
         TopAppBar({
-            Text("Detail")
+            Text(token?:"")
         })
     }) {
             paddingValues ->
