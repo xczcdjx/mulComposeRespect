@@ -9,9 +9,11 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.koin.compiler)
+//    alias(libs.plugins.koin.compiler)
     alias(libs.plugins.ktorfit)
     alias(libs.plugins.kotlinSerialization)
+    // Ktorfit 仍然需要
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -57,6 +59,7 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             // Ktor Android engine
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
         }
         jvmMain.dependencies {
             // Ktor JVM/Desktop engine
@@ -84,6 +87,7 @@ kotlin {
             implementation(libs.koin.core.viewmodel) // ViewModel 核心能力
             implementation(libs.koin.compose.viewmodel) // viewmodel
             implementation(libs.koin.annotations) // 注解包
+//            ksp(libs.koin.ksp.compiler)
             // navigation
             implementation(libs.navigation.compose)
             // ktorfit
@@ -105,18 +109,33 @@ kotlin {
             implementation(libs.ktor.client.js)
         }
     }
+    sourceSets.named("commonMain").configure {
+        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+    }
 }
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
 
-/*    add("kspCommonMainMetadata", libs.ktorfit.compiler)
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+//    add("kspIosX64", libs.koin.ksp.compiler)
+    add("kspIosArm64", libs.koin.ksp.compiler)
+
+    add("kspCommonMainMetadata", libs.ktorfit.compiler)
     add("kspAndroid", libs.ktorfit.compiler)
     add("kspIosSimulatorArm64", libs.ktorfit.compiler)
-    add("kspIosX64", libs.ktorfit.compiler)
-    add("kspIosArm64", libs.ktorfit.compiler)*/
+    add("kspIosArm64", libs.ktorfit.compiler)
 }
-
-
+ksp {
+    arg("KOIN_DEFAULT_MODULE","true")
+}
+tasks.matching { it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+//compose.resources {
+//    packageOfResClass = "mulcomposerespect.app.generated.resources"
+//}
 compose.desktop {
     application {
         mainClass = "com.djx.mulcomposerespect.MainKt"
