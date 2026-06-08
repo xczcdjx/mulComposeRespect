@@ -10,6 +10,8 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.koin.compiler)
+    alias(libs.plugins.ktorfit)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -53,6 +55,16 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
+            // Ktor Android engine
+            implementation(libs.ktor.client.okhttp)
+        }
+        jvmMain.dependencies {
+            // Ktor JVM/Desktop engine
+            implementation(libs.ktor.client.java)
+        }
+        iosMain.dependencies {
+            // Ktor iOS engine
+            implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
             api(projects.core)
@@ -75,18 +87,33 @@ kotlin {
             // navigation
             implementation(libs.navigation.compose)
             // ktorfit
-
+            implementation(libs.ktorfit)
+            implementation(libs.serialization.json)
+            implementation(libs.ktor.client.core)
+            implementation(libs.content.negotiation)
+            implementation(libs.kotlinx.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         jsMain.dependencies {
             implementation(libs.wrappers.browser)
+            implementation(libs.ktor.client.js)
+        }
+        wasmJsMain.dependencies {
+            // Ktor WasmJs 一般也用 js engine
+            implementation(libs.ktor.client.js)
         }
     }
 }
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
+
+/*    add("kspCommonMainMetadata", libs.ktorfit.compiler)
+    add("kspAndroid", libs.ktorfit.compiler)
+    add("kspIosSimulatorArm64", libs.ktorfit.compiler)
+    add("kspIosX64", libs.ktorfit.compiler)
+    add("kspIosArm64", libs.ktorfit.compiler)*/
 }
 
 
