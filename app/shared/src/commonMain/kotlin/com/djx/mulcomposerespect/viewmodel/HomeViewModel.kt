@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.koin.core.annotation.KoinViewModel
+import org.koin.android.annotation.KoinViewModel
 
 
 @KoinViewModel
@@ -40,6 +40,7 @@ class HomeViewModel(
         viewModelScope.launch {
             _toast.emit("当前 count = ${_count.value}")
         }
+        testRequest()
     }
     fun testRequest() {
         viewModelScope.launch {

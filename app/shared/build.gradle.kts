@@ -9,10 +9,9 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-//    alias(libs.plugins.koin.compiler)
     alias(libs.plugins.ktorfit)
     alias(libs.plugins.kotlinSerialization)
-    // Ktorfit 仍然需要
+    // ksp
     alias(libs.plugins.ksp)
 }
 
@@ -64,6 +63,7 @@ kotlin {
         jvmMain.dependencies {
             // Ktor JVM/Desktop engine
             implementation(libs.ktor.client.java)
+            implementation(libs.logback)
         }
         iosMain.dependencies {
             // Ktor iOS engine
@@ -86,7 +86,7 @@ kotlin {
             implementation(libs.koin.compose) // inject
             implementation(libs.koin.core.viewmodel) // ViewModel 核心能力
             implementation(libs.koin.compose.viewmodel) // viewmodel
-            implementation(libs.koin.annotations) // 注解包
+            api(libs.koin.annotations) // 注解包
 //            ksp(libs.koin.ksp.compiler)
             // navigation
             implementation(libs.navigation.compose)
@@ -119,7 +119,6 @@ dependencies {
     add("kspCommonMainMetadata", libs.koin.ksp.compiler)
     add("kspAndroid", libs.koin.ksp.compiler)
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-//    add("kspIosX64", libs.koin.ksp.compiler)
     add("kspIosArm64", libs.koin.ksp.compiler)
 
     add("kspCommonMainMetadata", libs.ktorfit.compiler)
