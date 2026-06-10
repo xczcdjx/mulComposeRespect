@@ -37,13 +37,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.djx.mulcomposerespect.utils.ToastManager
 import com.djx.mulcomposerespect.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -52,6 +55,7 @@ fun ListCom(
     goDetail: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val scope= rememberCoroutineScope()
     LaunchedEffect(Unit) {
         vm.toast.collect { msg -> snackbarHostState.showSnackbar(msg) }
     }
@@ -68,6 +72,9 @@ fun ListCom(
                 }
             }, actions = {
                 IconButton({
+                    scope.launch {
+                        ToastManager.show("aaa")
+                    }
                     vm.loadList(true)
                 }) {
                     Icon(Icons.Default.Refresh, null)

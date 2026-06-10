@@ -102,6 +102,8 @@ kotlin {
             implementation(libs.kotlinx.json)
             // 日志
             implementation(libs.kermit)
+            // toast
+            implementation(libs.compose.sonner)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
