@@ -3,7 +3,7 @@ package com.djx.mulcomposerespect.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.djx.mulcomposerespect.api.ApiService
+import com.djx.mulcomposerespect.services.ApiService
 import com.djx.mulcomposerespect.api.safeService
 import com.djx.mulcomposerespect.app.AppState
 import com.djx.mulcomposerespect.entities.TodoCls

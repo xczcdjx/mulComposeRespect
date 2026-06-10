@@ -1,4 +1,4 @@
-package com.djx.mulcomposerespect.dto
+package com.djx.mulcomposerespect.constants
 
 import kotlinx.serialization.Serializable
 interface BaseRes {

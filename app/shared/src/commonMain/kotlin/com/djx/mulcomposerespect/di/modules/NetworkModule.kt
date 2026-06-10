@@ -1,7 +1,6 @@
 package com.djx.mulcomposerespect.di.modules
 
-import com.djx.mulcomposerespect.api.ApiService
-import com.djx.mulcomposerespect.api.createApiService
+import com.djx.mulcomposerespect.services.ApiService
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.logging.Logging
@@ -11,8 +10,10 @@ import kotlinx.serialization.json.Json
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
 import co.touchlab.kermit.Logger
-import com.djx.mulcomposerespect.api.ApiException
+import com.djx.mulcomposerespect.api.BaseUrl
 import com.djx.mulcomposerespect.app.AppState
+import com.djx.mulcomposerespect.constants.ApiException
+import com.djx.mulcomposerespect.services.createApiService
 import io.ktor.client.plugins.HttpResponseValidator
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.plugins.defaultRequest
@@ -124,7 +125,7 @@ class NetworkModule {
     @Single
     fun provideKtorfit(client: HttpClient): Ktorfit {
         return Ktorfit.Builder()
-            .baseUrl("http://192.168.7.238:3000/")
+            .baseUrl(BaseUrl.value)
             .httpClient(client)
             .build()
     }

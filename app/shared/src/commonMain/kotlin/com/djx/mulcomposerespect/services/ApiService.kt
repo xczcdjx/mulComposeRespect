@@ -1,12 +1,10 @@
-package com.djx.mulcomposerespect.api
+package com.djx.mulcomposerespect.services
 
-
-import com.djx.mulcomposerespect.dto.BaseEntityRes
+import com.djx.mulcomposerespect.constants.BaseEntityRes
 import com.djx.mulcomposerespect.entities.TodoBody
 import com.djx.mulcomposerespect.entities.TodoCls
 import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.DELETE
-import de.jensklingenberg.ktorfit.http.Field
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.PUT

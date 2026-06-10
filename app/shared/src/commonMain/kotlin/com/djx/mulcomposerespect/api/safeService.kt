@@ -1,6 +1,7 @@
 package com.djx.mulcomposerespect.api
 
 import co.touchlab.kermit.Logger
+import com.djx.mulcomposerespect.constants.ApiException
 import kotlinx.io.IOException
 
 enum class ResErrorType {
@@ -15,11 +16,6 @@ data class ApiResponse<T>(
     val error: String? = null,
     val type: ResErrorType = ResErrorType.request
 )
-
-class ApiException(
-    val code: Int,
-    override val message: String
-) : IOException(message)
 
 suspend fun <T> safeService(
     apiCall: suspend () -> T
