@@ -14,8 +14,8 @@ data class TodoCls(
 
 @Serializable
 data class TodoBody(
-    val id: String?,
-    var title: String,
-    var content: String,
-    var done: Boolean = false,
+    val id: String="",
+    val title: String="",
+    val content: String="",
+    val done: Boolean?=false,
 )

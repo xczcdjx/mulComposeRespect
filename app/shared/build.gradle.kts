@@ -80,6 +80,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
+            // icon
+            implementation(libs.material.icons.extended)
+
             // koin
             api(project.dependencies.platform(libs.koin.bom))
             api(libs.koin.core) // core

@@ -24,6 +24,7 @@ koin-bom = "4.1.1"
 koin-annotations = "2.1.0"
 composeHotReload = "1.2.0-alpha01"
 ksp = "2.3.9"
+materialIconsExtended = "1.7.3"
 navigationCompose = "2.9.1"
 ktorfit = "2.7.5"
 serialization-json = "1.8.1"
@@ -52,6 +53,7 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-serverCore = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-serverNetty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-serverTestHost = { module = "io.ktor:ktor-server-test-host-jvm", version.ref = "ktor" }
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 wrappers-browser = { module = "org.jetbrains.kotlin-wrappers:kotlin-browser", version.ref = "kotlin-wrappers" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }

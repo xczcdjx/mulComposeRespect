@@ -4,5 +4,16 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+
+    <!-- 允许 HTTP 请求，开发环境用 -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+
+    <!-- 访问局域网 IP，比如 192.168.x.x -->
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>需要访问局域网服务器进行调试</string>
 </dict>
 </plist>

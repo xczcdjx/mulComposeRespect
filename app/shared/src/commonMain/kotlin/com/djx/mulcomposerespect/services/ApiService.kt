@@ -6,6 +6,7 @@ import com.djx.mulcomposerespect.entities.TodoCls
 import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.DELETE
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.PATCH
 import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.PUT
 import de.jensklingenberg.ktorfit.http.Path
@@ -26,11 +27,11 @@ interface ApiService {
         @Body body: TodoBody
     ): BaseEntityRes<TodoCls>
 
-    @PUT("todo")
+    @PATCH("todo")
     suspend fun updateTodo(
         @Body body: TodoBody
     ): BaseEntityRes<TodoCls>
 
     @DELETE("todo/{id}")
-    suspend fun deleteTodo(): BaseEntityRes<TodoCls?>
+    suspend fun deleteTodo(@Path("id") id: String): BaseEntityRes<TodoCls?>
 }
