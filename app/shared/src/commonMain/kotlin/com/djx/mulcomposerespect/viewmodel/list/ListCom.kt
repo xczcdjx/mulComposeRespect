@@ -102,7 +102,7 @@ fun ListCom(
                     }
                 }
             }
-            if (!vm.loading){
+            if (!vm.loading) {
                 items(list.size) { index ->
                     val todo = list[index]
                     ListItem(modifier = Modifier.clickable {
@@ -144,8 +144,9 @@ fun ListCom(
                         .padding(20.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
+                    val todo = vm.todoItem
                     Text(
-                        text = "新增 Todo",
+                        text = if (todo.id == "-1") "新增 Todo" else "修改 ToDo",
                         style = MaterialTheme.typography.titleLarge
                     )
 
@@ -183,7 +184,7 @@ fun ListCom(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Checkbox(
-                            checked = vm.todoItem.done ?: false,
+                            checked = todo.done ?: false,
                             onCheckedChange = {
                                 vm.updateTodoItem {
                                     copy(done = it)
@@ -210,9 +211,9 @@ fun ListCom(
 
                         Button(
                             onClick = {
-                                vm.submit(vm.todoItem.id)
+                                vm.submit(todo.id)
                             },
-                            enabled = vm.todoItem.title.isNotBlank() && vm.todoItem.content.isNotBlank()
+                            enabled = todo.title.isNotBlank() && todo.content.isNotBlank()
                         ) {
                             Text("保存")
                         }
