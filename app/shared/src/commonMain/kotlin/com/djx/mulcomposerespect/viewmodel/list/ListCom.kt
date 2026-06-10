@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.djx.mulcomposerespect.utils.ToastManager
 import com.djx.mulcomposerespect.viewmodel.HomeViewModel
+import com.dokar.sonner.TextToastAction
+import com.dokar.sonner.ToastType
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -55,7 +57,7 @@ fun ListCom(
     goDetail: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope= rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     LaunchedEffect(Unit) {
         vm.toast.collect { msg -> snackbarHostState.showSnackbar(msg) }
     }
@@ -73,7 +75,14 @@ fun ListCom(
             }, actions = {
                 IconButton({
                     scope.launch {
-                        ToastManager.show("aaa")
+                        ToastManager.show(
+                            "aaa", ToastType.Warning, action = TextToastAction(
+                                text = "Dismiss",
+                                onClick = {
+
+                                },
+                            )
+                        )
                     }
                     vm.loadList(true)
                 }) {

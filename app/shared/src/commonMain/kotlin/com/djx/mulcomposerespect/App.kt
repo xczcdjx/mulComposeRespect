@@ -27,8 +27,15 @@ fun App() {
             val navController: NavHostController = rememberNavController()
             val toaster = rememberToasterState()
             LaunchedEffect(Unit) {
-                ToastManager.toast.collect { msg ->
-                    toaster.show(msg)
+                ToastManager.toast.collect { toastEvent ->
+                    toaster.show(
+                        message = toastEvent.message,
+                        id = toastEvent.id,
+                        icon = toastEvent.icon,
+                        action = toastEvent.action,
+                        type = toastEvent.type,
+                        duration = toastEvent.duration
+                    )
                 }
             }
             Box(){
