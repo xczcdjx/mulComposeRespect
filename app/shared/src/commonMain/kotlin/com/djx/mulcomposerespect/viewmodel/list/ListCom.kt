@@ -22,7 +22,6 @@ fun ListCom(
     LaunchedEffect(Unit) {
         vm.toast.collect { msg -> print("Toast: $msg") }
     }
-    val count by vm.count.collectAsState()
     val title by vm.title.collectAsState()
     Scaffold(
         topBar = {
@@ -32,9 +31,8 @@ fun ListCom(
         }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            Text("count $count")
             TextButton({
-                vm.add(1)
+
             }) {
                 Text("c++")
             }

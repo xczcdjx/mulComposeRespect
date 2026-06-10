@@ -95,7 +95,10 @@ kotlin {
             implementation(libs.serialization.json)
             implementation(libs.ktor.client.core)
             implementation(libs.content.negotiation)
+            implementation(libs.ktor.client.logging)
             implementation(libs.kotlinx.json)
+            // 日志
+            implementation(libs.kermit)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

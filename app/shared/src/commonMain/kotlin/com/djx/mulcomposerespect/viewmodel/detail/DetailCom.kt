@@ -19,7 +19,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun DetailCom(vm: HomeViewModel = koinViewModel(),) {
     val appState: AppState = koinInject()
     val token by appState.token.collectAsState()
-    val count by vm.count.collectAsState()
     Scaffold(topBar = {
         TopAppBar({
             Text(token?:"")
@@ -27,7 +26,7 @@ fun DetailCom(vm: HomeViewModel = koinViewModel(),) {
     }) {
             paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            Text("count = $count")
+
         }
     }
 }
