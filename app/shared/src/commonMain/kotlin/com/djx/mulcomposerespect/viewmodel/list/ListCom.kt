@@ -76,12 +76,14 @@ fun ListCom(
                 IconButton({
                     scope.launch {
                         ToastManager.show(
-                            "aaa", ToastType.Warning, action = TextToastAction(
-                                text = "Dismiss",
-                                onClick = {
-
-                                },
-                            )
+                            "aaa", ToastType.Warning, actionBuilder = { toaster ->
+                                TextToastAction(
+                                    text = "Dismiss",
+                                    onClick = {
+                                        toaster.dismiss(it)
+                                    },
+                                )
+                            }
                         )
                     }
                     vm.loadList(true)

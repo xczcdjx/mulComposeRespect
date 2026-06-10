@@ -2,6 +2,7 @@ package com.djx.mulcomposerespect.utils
 
 import com.dokar.sonner.ToastType
 import com.dokar.sonner.ToasterDefaults
+import com.dokar.sonner.ToasterState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -21,10 +22,17 @@ data class ToastEvent(
     val type: ToastType = ToastType.Normal,
     val id: Any = currentNanoTime(),
     val icon: Any? = null,
-    val action: Any? = null,
+//    val action: Any? = null,
+    val actionBuilder: ((ToasterState) -> Any?)? = null,
     val duration: Duration = ToasterDefaults.DurationDefault
 )
+sealed class ToastAction {
+    data object None : ToastAction()
 
+    data class Dismiss(
+        val text: String = "关闭"
+    ) : ToastAction()
+}
 object ToastManager {
     private val _toast = MutableSharedFlow<ToastEvent>(
         extraBufferCapacity = 1
@@ -36,7 +44,7 @@ object ToastManager {
         type: ToastType = ToastType.Normal,
         id: Any = currentNanoTime(),
         icon: Any? = null,
-        action: Any? = null,
+        actionBuilder: ((ToasterState) -> Any?)? = null,
         duration: Duration = ToasterDefaults.DurationDefault
     ) {
         _toast.emit(
@@ -45,7 +53,7 @@ object ToastManager {
                 type = type,
                 id = id,
                 icon = icon,
-                action = action,
+                actionBuilder = actionBuilder,
                 duration = duration
             )
         )
@@ -56,7 +64,7 @@ object ToastManager {
         type: ToastType = ToastType.Normal,
         id: Any = currentNanoTime(),
         icon: Any? = null,
-        action: Any? = null,
+        actionBuilder: ((ToasterState) -> Any?)? = null,
         duration: Duration = ToasterDefaults.DurationDefault
     ) {
         _toast.tryEmit(
@@ -65,7 +73,7 @@ object ToastManager {
                 type = type,
                 id = id,
                 icon = icon,
-                action = action,
+                actionBuilder = actionBuilder,
                 duration = duration
             )
         )

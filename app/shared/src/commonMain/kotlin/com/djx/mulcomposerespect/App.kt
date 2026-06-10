@@ -32,20 +32,20 @@ fun App() {
                         message = toastEvent.message,
                         id = toastEvent.id,
                         icon = toastEvent.icon,
-                        action = toastEvent.action,
+                        action = toastEvent.actionBuilder?.invoke(toaster),
                         type = toastEvent.type,
                         duration = toastEvent.duration
                     )
                 }
             }
-            Box(){
+            Box() {
                 NavHost(navController = navController, startDestination = "List") {
-                    composable("List"){
-                        ListCom(goDetail={
+                    composable("List") {
+                        ListCom(goDetail = {
                             navController.navigate("Detail")
                         })
                     }
-                    composable("Detail"){
+                    composable("Detail") {
                         DetailCom()
                     }
                 }
