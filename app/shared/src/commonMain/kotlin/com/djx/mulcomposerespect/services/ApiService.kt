@@ -16,22 +16,22 @@ interface ApiService {
     @GET("/")
     suspend fun getHello(): BaseEntityRes<String>
 
-    @GET("todo")
+    @GET("todos")
     suspend fun getTodos(): BaseEntityRes<List<TodoCls>>
 
-    @GET("todo/{id}")
+    @GET("todos/{id}")
     suspend fun getTodo(@Path("id") id: String): BaseEntityRes<TodoCls>
 
-    @POST("todo")
+    @POST("todos")
     suspend fun createTodo(
         @Body body: TodoBody
     ): BaseEntityRes<TodoCls>
 
-    @PATCH("todo")
+    @PATCH("todos")
     suspend fun updateTodo(
         @Body body: TodoBody
     ): BaseEntityRes<TodoCls>
 
-    @DELETE("todo/{id}")
-    suspend fun deleteTodo(@Path("id") id: String): BaseEntityRes<TodoCls?>
+    @DELETE("todos/{id}")
+    suspend fun deleteTodo(@Path("id") id: String): BaseEntityRes<Unit?>
 }
