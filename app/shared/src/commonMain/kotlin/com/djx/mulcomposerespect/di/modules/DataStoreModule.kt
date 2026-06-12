@@ -22,4 +22,13 @@ class DataStoreModule {
     ): AppStorage {
         return AppStorage(dataStore)
     }
+
+/*    @Single
+    fun provideAppStorage(
+        factory: DataStoreFactory
+    ): AppStorage {
+        return AppStorage(
+            dataStore = factory.create()
+        )
+    }*/
 }
