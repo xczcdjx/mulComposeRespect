@@ -5,6 +5,10 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 
+    <!-- 相机权限：扫码需要 -->
+    <key>NSCameraUsageDescription</key>
+    <string>需要使用相机进行扫码</string>
+
     <!-- 允许 HTTP 请求，开发环境用 -->
     <key>NSAppTransportSecurity</key>
     <dict>

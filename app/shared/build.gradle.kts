@@ -109,6 +109,12 @@ kotlin {
             implementation(libs.androidx.datastore)
             // The Preferences DataStore library
             implementation(libs.androidx.datastore.preferences)
+            // 扫码
+            implementation(libs.kscan)
+            // permission
+            implementation(libs.permissions)
+            implementation(libs.permissions.compose)
+            implementation(libs.permissions.camera)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
