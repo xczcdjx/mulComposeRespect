@@ -20,9 +20,3 @@ fun initApplication(config: KoinAppDeclaration = {}): KoinApplication {
 fun initKoin() {
     initApplication {}
 }
-
-object KoinInitializer {
-    fun start() {
-        initApplication {}
-    }
-}
