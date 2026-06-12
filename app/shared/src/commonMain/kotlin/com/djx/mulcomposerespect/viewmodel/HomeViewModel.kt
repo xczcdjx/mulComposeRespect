@@ -44,7 +44,7 @@ class HomeViewModel(
         private set
 
     init {
-        loadList()
+        loadList(true)
     }
 
     fun loadList(isLoading: Boolean=false) {

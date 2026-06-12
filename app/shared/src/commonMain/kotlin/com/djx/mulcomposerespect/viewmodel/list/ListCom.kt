@@ -105,23 +105,32 @@ fun ListCom(
 
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            if (list.isEmpty() || vm.loading) {
-                item {
-                    Column(
-                        modifier = Modifier.fillMaxWidth().height(200.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        if (vm.loading) {
+            when {
+                vm.loading -> {
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().height(200.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             LoadingIndicator()
-                        } else {
+                        }
+                    }
+                }
+
+                list.isEmpty() -> {
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().height(200.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             Text("No Data")
                         }
                     }
                 }
-            }
-            if (!vm.loading) {
-                items(list.size) { index ->
+
+                else -> items(list.size) { index ->
                     val todo = list[index]
                     ListItem(modifier = Modifier.clickable {
                         vm.upData(todo)
