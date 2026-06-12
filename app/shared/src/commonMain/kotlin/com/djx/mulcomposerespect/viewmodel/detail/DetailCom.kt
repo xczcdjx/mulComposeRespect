@@ -16,7 +16,7 @@ import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun DetailCom(vm: HomeViewModel = koinViewModel(),) {
+fun DetailScreen(vm: HomeViewModel = koinViewModel(),) {
     val appState: AppState = koinInject()
     val token by appState.token.collectAsState()
     Scaffold(topBar = {

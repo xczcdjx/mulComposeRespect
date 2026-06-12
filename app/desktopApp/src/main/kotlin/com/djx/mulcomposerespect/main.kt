@@ -2,10 +2,10 @@ package com.djx.mulcomposerespect
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.djx.mulcomposerespect.di.initKoin
+import com.djx.mulcomposerespect.di.startKoin
 
 fun main() = application {
-    initKoin()
+    startKoin()
     Window(
         onCloseRequest = ::exitApplication,
         title = "MulComposeRespect",
