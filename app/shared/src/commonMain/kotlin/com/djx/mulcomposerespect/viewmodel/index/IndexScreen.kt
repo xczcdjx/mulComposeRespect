@@ -81,6 +81,13 @@ fun IndexScreen(
                     Text("Count++")
                 }
             }
+            item {
+                TextButton({
+                    vm.getData()
+                }) {
+                    Text("getData")
+                }
+            }
         }
     }
 }

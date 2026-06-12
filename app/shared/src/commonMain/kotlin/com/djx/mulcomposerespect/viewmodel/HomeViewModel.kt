@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.djx.mulcomposerespect.services.ApiService
 import com.djx.mulcomposerespect.app.AppState
+import com.djx.mulcomposerespect.entities.TodoBody
 import com.djx.mulcomposerespect.utils.AppStorage
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -36,11 +38,12 @@ class HomeViewModel(
 
     fun load() {
         viewModelScope.launch {
-            val value = appStorage
-                .getStringFlow(countKey)
-                .first()
-
-            _count.value = value?.toIntOrNull() ?: 0
+            // 临时取值
+            val countValue = appStorage.getStringFlow(countKey)
+//            _count.value = countValue.first()?.toIntOrNull() ?: 0
+            countValue.collect {
+                _count.value = it?.toIntOrNull() ?: 0
+            }
         }
     }
 
@@ -49,6 +52,23 @@ class HomeViewModel(
         Logger.i { "count ${_count.value}" }
         viewModelScope.launch {
             appStorage.putString(countKey, _count.value.toString())
+            appStorage.putObject("todo", TodoBody(_count.value.toString()))
+            appStorage.putList("todoList", listOf(TodoBody(_count.value.toString(),"bbbbb"),TodoBody(_count.value.toString(),"aaaaa")))
+        }
+    }
+
+    fun getData(){
+        viewModelScope.launch {
+            val todo: TodoBody? = appStorage.getObjectFlow<TodoBody?>("todo").first()
+            Logger.i {
+                todo.toString()
+            }
+            val todoList = appStorage.getListFlow<TodoBody>("todoList")
+            todoList.collect { l->
+                Logger.i {
+                    l.joinToString()
+                }
+            }
         }
     }
 }
