@@ -8,13 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.djx.mulcomposerespect.router.Router
 import com.djx.mulcomposerespect.utils.ToastManager
-import com.djx.mulcomposerespect.viewmodel.detail.DetailCom
-import com.djx.mulcomposerespect.viewmodel.list.ListCom
 import com.dokar.sonner.Toaster
 import com.dokar.sonner.rememberToasterState
 
@@ -24,7 +19,6 @@ import com.dokar.sonner.rememberToasterState
 fun App() {
     MaterialTheme {
         Surface {
-            val navController: NavHostController = rememberNavController()
             val toaster = rememberToasterState()
             LaunchedEffect(Unit) {
                 ToastManager.toast.collect { toastEvent ->
@@ -39,16 +33,7 @@ fun App() {
                 }
             }
             Box() {
-                NavHost(navController = navController, startDestination = "List") {
-                    composable("List") {
-                        ListCom(goDetail = {
-                            navController.navigate("Detail")
-                        })
-                    }
-                    composable("Detail") {
-                        DetailCom()
-                    }
-                }
+                Router()
                 Toaster(state = toaster, alignment = Alignment.TopCenter)
             }
         }
