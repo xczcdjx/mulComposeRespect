@@ -28,14 +28,14 @@ kotlin {
     }
     jvm()
 
-    js {
+/*    js {
         browser()
     }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
-    }
+    }*/
 
     androidLibrary {
         namespace = "com.djx.mulcomposerespect.app.shared"
@@ -104,18 +104,23 @@ kotlin {
             implementation(libs.kermit)
             // toast
             implementation(libs.compose.sonner)
+            // datastore
+            // DataStore library
+            implementation(libs.androidx.datastore)
+            // The Preferences DataStore library
+            implementation(libs.androidx.datastore.preferences)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        jsMain.dependencies {
+        /*jsMain.dependencies {
             implementation(libs.wrappers.browser)
             implementation(libs.ktor.client.js)
         }
         wasmJsMain.dependencies {
             // Ktor WasmJs 一般也用 js engine
             implementation(libs.ktor.client.js)
-        }
+        }*/
     }
     sourceSets.named("commonMain").configure {
         kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
