@@ -29,7 +29,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DetailScreen() {
-    val state = rememberWebViewState(url = "https://baidu.com")
+    val state = rememberWebViewState(url = "https://transient.cloud")
     val navigator = rememberWebViewNavigator()
 
     Column(

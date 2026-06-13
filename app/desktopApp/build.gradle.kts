@@ -43,3 +43,20 @@ afterEvaluate {
         }
     }
 }
+
+tasks.register<JavaExec>("runWebView") {
+    group = "application"
+    description = "Run desktop app with KCEF WebView main"
+
+    mainClass.set("com.djx.mulcomposerespect.WebViewMainKt")
+
+    classpath = sourceSets["main"].runtimeClasspath
+
+    jvmArgs(
+        "--enable-native-access=ALL-UNNAMED",
+        "--add-opens", "java.desktop/sun.awt=ALL-UNNAMED",
+        "--add-opens", "java.desktop/java.awt.peer=ALL-UNNAMED",
+        "--add-opens", "java.desktop/sun.lwawt=ALL-UNNAMED",
+        "--add-opens", "java.desktop/sun.lwawt.macosx=ALL-UNNAMED"
+    )
+}
