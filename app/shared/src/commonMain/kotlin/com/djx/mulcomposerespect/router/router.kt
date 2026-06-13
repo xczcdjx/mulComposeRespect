@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.djx.mulcomposerespect.viewmodel.detail.DetailScreen
 import com.djx.mulcomposerespect.viewmodel.index.IndexScreen
+import com.djx.mulcomposerespect.viewmodel.scan.ScanPage
 import com.djx.mulcomposerespect.viewmodel.todoDemo.TodoListScreen
 
 @Composable
@@ -23,6 +24,11 @@ fun Router() {
         }
         composable(Routes.TodoDemo.route) {
             TodoListScreen() {
+                navController.popBackStack()
+            }
+        }
+        composable(Routes.Scan.route) {
+            ScanPage() {
                 navController.popBackStack()
             }
         }
