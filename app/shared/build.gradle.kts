@@ -117,10 +117,11 @@ kotlin {
             implementation(libs.androidx.datastore.preferences)
             // 扫码
             implementation(libs.kscan)
-            /*// permission
+            /*// permission only android or ios
             implementation(libs.permissions)
             implementation(libs.permissions.compose)
             implementation(libs.permissions.camera)*/
+            api("io.github.kevinnzou:compose-webview-multiplatform:2.0.3")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

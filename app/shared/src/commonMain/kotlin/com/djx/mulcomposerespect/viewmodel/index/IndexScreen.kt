@@ -84,7 +84,7 @@ fun IndexScreen(
             }
             item {
                 TextButton({
-                    vm.getData()
+                    go(Routes.Detail.route)
                 }) {
                     Text("getData")
                 }
