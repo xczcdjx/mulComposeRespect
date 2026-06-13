@@ -59,6 +59,9 @@ kotlin {
             // Ktor Android engine
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
+            implementation(libs.permissions)
+            implementation(libs.permissions.compose)
+            implementation(libs.permissions.camera)
         }
         jvmMain.dependencies {
             // Ktor JVM/Desktop engine
@@ -68,6 +71,9 @@ kotlin {
         iosMain.dependencies {
             // Ktor iOS engine
             implementation(libs.ktor.client.darwin)
+            implementation(libs.permissions)
+            implementation(libs.permissions.compose)
+            implementation(libs.permissions.camera)
         }
         commonMain.dependencies {
             api(projects.core)
@@ -111,10 +117,10 @@ kotlin {
             implementation(libs.androidx.datastore.preferences)
             // 扫码
             implementation(libs.kscan)
-            // permission
+            /*// permission
             implementation(libs.permissions)
             implementation(libs.permissions.compose)
-            implementation(libs.permissions.camera)
+            implementation(libs.permissions.camera)*/
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
