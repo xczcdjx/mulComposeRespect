@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Fullscreen
+import androidx.compose.material.icons.filled.FullscreenExit
 import androidx.compose.material.icons.filled.Light
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.MonetizationOn
@@ -30,8 +32,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.djx.mulcomposerespect.export.SystemStyles
+import com.djx.mulcomposerespect.export.rememberStatusBarVisible
 import com.djx.mulcomposerespect.router.Routes
 import com.djx.mulcomposerespect.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -52,7 +56,7 @@ fun IndexScreen(
         topBar = {
             TopAppBar(
                 // ios full
-                windowInsets = WindowInsets(0),
+//                windowInsets = WindowInsets(0),
                 title = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -79,10 +83,20 @@ fun IndexScreen(
             }) {
                 Icon(Icons.Default.QrCode, null)
             }*/
-            IconButton({
-                SystemStyles.hideStatusBar()
-            }) {
-                Icon(Icons.Default.Add, null)
+            val statusBarVisible by rememberStatusBarVisible()
+            IconButton(
+                onClick = {
+                    SystemStyles.toggleStatusBar()
+                }
+            ) {
+                Icon(
+                    imageVector = if (statusBarVisible) {
+                        Icons.Default.Fullscreen
+                    } else {
+                        Icons.Default.FullscreenExit
+                    },
+                    contentDescription = if (statusBarVisible) "隐藏状态栏" else "显示状态栏"
+                )
             }
         },
         snackbarHost = {
