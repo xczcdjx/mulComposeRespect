@@ -2,6 +2,7 @@ package com.djx.mulcomposerespect.viewmodel.index
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,7 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.djx.mulcomposerespect.export.SystemBars
+import com.djx.mulcomposerespect.export.SystemStyles
 import com.djx.mulcomposerespect.router.Routes
 import com.djx.mulcomposerespect.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -49,7 +50,10 @@ fun IndexScreen(
     val count by vm.count.collectAsState()
     Scaffold(
         topBar = {
-            TopAppBar(title = {
+            TopAppBar(
+                // ios full
+                windowInsets = WindowInsets(0),
+                title = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
@@ -76,7 +80,7 @@ fun IndexScreen(
                 Icon(Icons.Default.QrCode, null)
             }*/
             IconButton({
-                SystemBars.hide()
+                SystemStyles.hideStatusBar()
             }) {
                 Icon(Icons.Default.Add, null)
             }

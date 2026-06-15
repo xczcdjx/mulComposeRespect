@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.tooling.preview.Preview
 import com.djx.mulcomposerespect.app.AppState
+import com.djx.mulcomposerespect.export.SystemBarStyle
 import com.djx.mulcomposerespect.router.Router
 import com.djx.mulcomposerespect.theme.AppTheme
 import com.djx.mulcomposerespect.utils.ToastManager
@@ -22,6 +23,7 @@ import org.koin.compose.koinInject
 fun App() {
     val appState= koinInject<AppState>()
     val isDark by appState.isDark.collectAsState()
+    SystemBarStyle(isDark)
     AppTheme(darkTheme = isDark) {
         Surface {
             val toaster = rememberToasterState()
