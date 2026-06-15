@@ -121,7 +121,11 @@ kotlin {
             implementation(libs.permissions)
             implementation(libs.permissions.compose)
             implementation(libs.permissions.camera)*/
+            // webview
             api("io.github.kevinnzou:compose-webview-multiplatform:2.0.3")
+            // color
+            implementation(libs.colormath)
+            implementation(libs.colormath.ext.jetpack.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -9,6 +9,7 @@ androidx-core = "1.18.0"
 androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.11.0-beta01"
 androidx-testExt = "1.3.0"
+colormath = "3.6.1"
 composeMultiplatform = "1.11.0"
 datastore = "1.2.1"
 junit = "4.13.2"
@@ -99,6 +100,9 @@ kscan = { module = "io.github.ismai117:KScan", version.ref = "kscan" }
 permissions = { module = "dev.icerock.moko:permissions", version.ref = "permissions" }
 permissions-camera = { module = "dev.icerock.moko:permissions-camera", version.ref = "permissions" }
 permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
+# color
+colormath = { module = "com.github.ajalt.colormath:colormath", version.ref = "colormath" }
+colormath-ext-jetpack-compose = { module = "com.github.ajalt.colormath:colormath-ext-jetpack-compose", version.ref = "colormath" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

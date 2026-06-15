@@ -1,6 +1,7 @@
 package com.djx.mulcomposerespect.viewmodel
 
 
+import androidx.compose.runtime.derivedStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
@@ -31,6 +32,8 @@ class HomeViewModel(
     val title = _title.asStateFlow()
     val toast = _toast.asSharedFlow()
     val count = _count.asStateFlow()
+
+    val isDark = appState.isDark
 
     init {
         load()
@@ -71,4 +74,5 @@ class HomeViewModel(
             }
         }
     }
+    fun toggleDark()= appState.toggleDark()
 }

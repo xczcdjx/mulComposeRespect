@@ -8,6 +8,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Light
+import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -56,6 +60,11 @@ fun IndexScreen(
                     go(Routes.TodoDemo.route)
                 }) {
                     Icon(Icons.AutoMirrored.Filled.List, null)
+                }
+                IconButton(onClick = vm::toggleDark) {
+                    val ic =
+                        if (vm.isDark.value) Icons.Default.DarkMode else Icons.Default.LightMode
+                    Icon(ic, null)
                 }
             })
         },
