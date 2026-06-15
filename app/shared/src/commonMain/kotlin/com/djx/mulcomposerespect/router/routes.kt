@@ -5,4 +5,5 @@ sealed class Routes(val route: String) {
     object Detail: Routes("Detail")
     object TodoDemo: Routes("TodoDemo")
     object Scan: Routes("Scan")
+    object ImageLoader: Routes("ImageLoader")
 }

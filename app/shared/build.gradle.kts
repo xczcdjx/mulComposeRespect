@@ -126,6 +126,10 @@ kotlin {
             // color
             implementation(libs.colormath)
             implementation(libs.colormath.ext.jetpack.compose)
+            // coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
+            implementation(libs.coil.svg)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

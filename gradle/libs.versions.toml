@@ -33,6 +33,7 @@ ktorfit = "2.7.5"
 permissions = "0.20.1"
 serialization-json = "1.8.1"
 sonner = "0.3.9"
+coil = "3.5.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -89,12 +90,12 @@ serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-jso
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 # toast
 compose-sonner = { module = "io.github.dokar3:sonner", version.ref = "sonner" }
-# 日志
+# logger print
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
-# 存储
+# storage
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-# 扫码
+# scan
 kscan = { module = "io.github.ismai117:KScan", version.ref = "kscan" }
 # permission
 permissions = { module = "dev.icerock.moko:permissions", version.ref = "permissions" }
@@ -103,7 +104,10 @@ permissions-compose = { module = "dev.icerock.moko:permissions-compose", version
 # color
 colormath = { module = "com.github.ajalt.colormath:colormath", version.ref = "colormath" }
 colormath-ext-jetpack-compose = { module = "com.github.ajalt.colormath:colormath-ext-jetpack-compose", version.ref = "colormath" }
-
+# coil
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" } # svg
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }

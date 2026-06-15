@@ -52,51 +52,51 @@ fun IndexScreen(
     }
     val title by vm.title.collectAsState()
     val count by vm.count.collectAsState()
+    val statusBarVisible by rememberStatusBarVisible()
     Scaffold(
         topBar = {
             TopAppBar(
                 // ios full
 //                windowInsets = WindowInsets(0),
                 title = {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(title)
-                }
-            }, actions = {
-                IconButton({
-                    go(Routes.TodoDemo.route)
-                }) {
-                    Icon(Icons.AutoMirrored.Filled.List, null)
-                }
-                IconButton(onClick = vm::toggleDark) {
-                    val ic =
-                        if (vm.isDark.value) Icons.Default.DarkMode else Icons.Default.LightMode
-                    Icon(ic, null)
-                }
-            })
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(title)
+                    }
+                }, actions = {
+                    IconButton({
+                        go(Routes.TodoDemo.route)
+                    }) {
+                        Icon(Icons.AutoMirrored.Filled.List, null)
+                    }
+                    IconButton(onClick = vm::toggleDark) {
+                        val ic =
+                            if (vm.isDark.value) Icons.Default.DarkMode else Icons.Default.LightMode
+                        Icon(ic, null)
+                    }
+                    IconButton(
+                        onClick = {
+                            SystemStyles.toggleStatusBar()
+                        }
+                    ) {
+                        Icon(
+                            imageVector = if (statusBarVisible) {
+                                Icons.Default.Fullscreen
+                            } else {
+                                Icons.Default.FullscreenExit
+                            },
+                            contentDescription = if (statusBarVisible) "隐藏状态栏" else "显示状态栏"
+                        )
+                    }
+                })
         },
         floatingActionButton = {
-            /*IconButton({
+            IconButton({
                 go(Routes.Scan.route)
             }) {
                 Icon(Icons.Default.QrCode, null)
-            }*/
-            val statusBarVisible by rememberStatusBarVisible()
-            IconButton(
-                onClick = {
-                    SystemStyles.toggleStatusBar()
-                }
-            ) {
-                Icon(
-                    imageVector = if (statusBarVisible) {
-                        Icons.Default.Fullscreen
-                    } else {
-                        Icons.Default.FullscreenExit
-                    },
-                    contentDescription = if (statusBarVisible) "隐藏状态栏" else "显示状态栏"
-                )
             }
         },
         snackbarHost = {
@@ -120,6 +120,13 @@ fun IndexScreen(
                     go(Routes.Detail.route)
                 }) {
                     Text("getData")
+                }
+            }
+            item {
+                TextButton({
+                    go(Routes.ImageLoader.route)
+                }) {
+                    Text("go ImagerLoader")
                 }
             }
         }
