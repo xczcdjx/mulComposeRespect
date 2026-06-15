@@ -30,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.djx.mulcomposerespect.export.SystemBars
 import com.djx.mulcomposerespect.router.Routes
 import com.djx.mulcomposerespect.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -69,10 +70,15 @@ fun IndexScreen(
             })
         },
         floatingActionButton = {
-            IconButton({
+            /*IconButton({
                 go(Routes.Scan.route)
             }) {
                 Icon(Icons.Default.QrCode, null)
+            }*/
+            IconButton({
+                SystemBars.hide()
+            }) {
+                Icon(Icons.Default.Add, null)
             }
         },
         snackbarHost = {

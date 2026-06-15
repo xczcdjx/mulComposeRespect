@@ -4,7 +4,9 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-
+    <!--    状态栏控制-->
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
     <!-- 相机权限：扫码需要 -->
     <key>NSCameraUsageDescription</key>
     <string>需要使用相机进行扫码</string>
