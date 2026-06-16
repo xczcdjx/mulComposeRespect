@@ -174,3 +174,10 @@ compose.desktop {
         mainClass = "com.djx.mulcomposerespect.MainKt"
     }
 }
+// static resources
+tasks.register("genComposeRes") {
+    group = "compose resources"
+    description = "Generate Compose Multiplatform Res class"
+
+    dependsOn("generateComposeResClass")
+}
