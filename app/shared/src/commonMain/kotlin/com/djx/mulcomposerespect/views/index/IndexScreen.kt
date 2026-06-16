@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Fullscreen
 import androidx.compose.material.icons.filled.FullscreenExit
@@ -24,10 +23,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import com.djx.mulcomposerespect.export.SystemStyles
 import com.djx.mulcomposerespect.export.rememberStatusBarVisible
 import com.djx.mulcomposerespect.router.Routes
@@ -45,6 +45,13 @@ fun IndexScreen(
     }
     val title by vm.title.collectAsState()
     val statusBarVisible by rememberStatusBarVisible()
+    val listCom: List<RouterList> = listOf(
+        RouterList(Routes.Count.route, "Count Storage Demo"),
+        RouterList(Routes.TodoList.route, "TodoList Demo"),
+        RouterList(Routes.Scan.route, "Scan Demo"),
+        RouterList(Routes.WebView.route, "WebView Demo"),
+        RouterList(Routes.ImageLoader.route, "Go ImagerLoader"),
+    )
     Scaffold(
         topBar = {
             TopAppBar(
@@ -85,41 +92,22 @@ fun IndexScreen(
 
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            item {
+            items(listCom.size) {
+                val lc = listCom[it]
                 TextButton({
-                    go(Routes.Count.route)
+                    go(lc.name)
                 }) {
-                    Text("Count Storage Demo")
-                }
-            }
-            item {
-                TextButton({
-                    go(Routes.TodoList.route)
-                }) {
-                    Text("TodoList Demo")
-                }
-            }
-            item {
-                TextButton({
-                    go(Routes.WebView.route)
-                }) {
-                    Text("WebView Demo")
-                }
-            }
-            item {
-                TextButton({
-                    go(Routes.ImageLoader.route)
-                }) {
-                    Text("go ImagerLoader")
-                }
-            }
-            item {
-                TextButton({
-                    go(Routes.Scan.route)
-                }) {
-                    Text("Scan Demo")
+                    Text(buildAnnotatedString {
+                        withStyle(SpanStyle(Color.Red)) {
+                            append("${it + 1}.")
+                        }
+                        append(" ")
+                        append(lc.title)
+                    })
                 }
             }
         }
     }
 }
+
+data class RouterList(val name: String, val title: String)
