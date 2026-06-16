@@ -13,10 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.window.WindowDraggableArea
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Fullscreen
@@ -27,6 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
+import com.djx.mulcomposerespect.export.rememberFullScreen
+import com.djx.mulcomposerespect.titleBar.MacButtonType
+import com.djx.mulcomposerespect.titleBar.MacWindowButton
 
 @Composable
 fun WindowScope.DesktopTitleBar(
@@ -44,7 +47,6 @@ fun WindowScope.DesktopTitleBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (isMacOs()){
-
             MacWindowButtons(
                 onClose = onClose,
                 onMinimize = onMinimize,
@@ -62,7 +64,7 @@ fun WindowScope.DesktopTitleBar(
                 ) {
                     Text(
                         text = title,
-                        color = MaterialTheme.colors.onSurface
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -79,7 +81,7 @@ fun WindowScope.DesktopTitleBar(
                 ) {
                     Text(
                         text = title,
-                        color = MaterialTheme.colors.onSurface
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -88,7 +90,7 @@ fun WindowScope.DesktopTitleBar(
                 Icon(
                     imageVector = Icons.Default.Minimize,
                     contentDescription = "最小化",
-                    tint = MaterialTheme.colors.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -96,7 +98,7 @@ fun WindowScope.DesktopTitleBar(
                 Icon(
                     imageVector = Icons.Default.Fullscreen,
                     contentDescription = "最大化",
-                    tint = MaterialTheme.colors.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -104,7 +106,7 @@ fun WindowScope.DesktopTitleBar(
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "关闭",
-                    tint = MaterialTheme.colors.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -121,6 +123,7 @@ private fun MacWindowButtons(
     ) {
         MacWindowButton(
             color = Color(0xFFFF5F57),
+            type = MacButtonType.Close,
             onClick = onClose
         )
 
@@ -128,6 +131,7 @@ private fun MacWindowButtons(
 
         MacWindowButton(
             color = Color(0xFFFFBD2E),
+            type = MacButtonType.Minimize,
             onClick = onMinimize
         )
 
@@ -135,26 +139,9 @@ private fun MacWindowButtons(
 
         MacWindowButton(
             color = Color(0xFF28C840),
-            onClick = onMaximize
+            type = MacButtonType.Maximize,
+            onClick = onMaximize,
         )
-    }
-}
-@Composable
-private fun MacWindowButton(
-    color: Color,
-    onClick: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .size(14.dp)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
-        Canvas(
-            modifier = Modifier.size(12.dp)
-        ) {
-            drawCircle(color = color)
-        }
     }
 }
 private fun isMacOs(): Boolean {

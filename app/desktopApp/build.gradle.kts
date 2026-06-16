@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.compose.uiToolingPreview)
     // icon
     implementation(libs.material.icons.extended)
+    implementation(compose.material3)
 }
 
 compose.desktop {
