@@ -2,11 +2,15 @@ package com.djx.mulcomposerespect.export
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 actual object SystemStyles {
     private val fullScreenState = mutableStateOf(false)
     private val statusBarVisibleState = mutableStateOf(true)
+
+    val darkStatus = mutableStateOf(false)
 
     private var enterFullScreenAction: (() -> Unit)? = null
     private var exitFullScreenAction: (() -> Unit)? = null
@@ -56,10 +60,13 @@ actual object SystemStyles {
     fun statusBarVisibleState(): State<Boolean> = statusBarVisibleState
 
     fun fullScreenState(): State<Boolean> = fullScreenState
+
+
 }
 
 @Composable
 actual fun SystemBarStyle(isDark: Boolean) {
+    SystemStyles.darkStatus.value = isDark
 }
 
 @Composable

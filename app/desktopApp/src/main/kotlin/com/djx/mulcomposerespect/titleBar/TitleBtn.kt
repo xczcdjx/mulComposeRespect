@@ -17,9 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.unit.dp
 import com.djx.mulcomposerespect.export.rememberFullScreen
@@ -39,7 +36,6 @@ fun MacWindowButton(
     val interactionSource = remember { MutableInteractionSource() }
     val isFull = rememberFullScreen()
     val isHovered by interactionSource.collectIsHoveredAsState()
-
     Box(
         modifier = Modifier
             .size(18.dp)
@@ -56,7 +52,7 @@ fun MacWindowButton(
         ) {
             drawCircle(color = color)
 
-            if (true) {
+            if (isHovered) {
                 val iconColor = Color(0xAA000000)
                 val strokeWidth = 1.4.dp.toPx()
 

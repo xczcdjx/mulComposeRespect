@@ -3,12 +3,15 @@ package com.djx.mulcomposerespect
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -22,11 +25,14 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Fullscreen
 import androidx.compose.material.icons.filled.Minimize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
+import com.djx.mulcomposerespect.export.SystemStyles
 import com.djx.mulcomposerespect.export.rememberFullScreen
 import com.djx.mulcomposerespect.titleBar.MacButtonType
 import com.djx.mulcomposerespect.titleBar.MacWindowButton
@@ -38,6 +44,7 @@ fun WindowScope.DesktopTitleBar(
     onMinimize: () -> Unit = {},
     onMaximize: () -> Unit = {}
 ) {
+    val isDark by SystemStyles.darkStatus
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +53,7 @@ fun WindowScope.DesktopTitleBar(
             .padding(start = 12.dp, end = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (isMacOs()){
+        if (isMacOs()) {
             MacWindowButtons(
                 onClose = onClose,
                 onMinimize = onMinimize,
@@ -59,24 +66,40 @@ fun WindowScope.DesktopTitleBar(
                 modifier = Modifier.weight(1f).fillMaxHeight()
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
+                        .combinedClickable(
+                            interactionSource = null,
+                            onClick = {},
+                            indication = null,
+                            onDoubleClick = {
+                                SystemStyles.toggleFullScreen()
+                            }
+                        ),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = title,
-                        color = MaterialTheme.colorScheme.onSurface
+                        modifier = Modifier.offset(x = (-56).dp),
+                        color = if (isDark) Color.White else Color.Black
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.width(56.dp))
-        }
-        else {
+//            Spacer(modifier = Modifier.width(56.dp))
+        } else {
             WindowDraggableArea(
                 modifier = Modifier.weight(1f)
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .combinedClickable(
+                            interactionSource = null,
+                            onClick = {},
+                            indication = null,
+                            onDoubleClick = {
+                                SystemStyles.toggleFullScreen()
+                            }
+                        ),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -112,6 +135,7 @@ fun WindowScope.DesktopTitleBar(
         }
     }
 }
+
 @Composable
 private fun MacWindowButtons(
     onClose: () -> Unit,
@@ -144,6 +168,7 @@ private fun MacWindowButtons(
         )
     }
 }
+
 private fun isMacOs(): Boolean {
     return System.getProperty("os.name")
         .contains("Mac", ignoreCase = true)
