@@ -1,21 +1,16 @@
-package com.djx.mulcomposerespect.viewmodel.index
+package com.djx.mulcomposerespect.views.index
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Fullscreen
 import androidx.compose.material.icons.filled.FullscreenExit
-import androidx.compose.material.icons.filled.Light
 import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.MonetizationOn
-import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -32,26 +27,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.djx.mulcomposerespect.export.SystemStyles
 import com.djx.mulcomposerespect.export.rememberStatusBarVisible
 import com.djx.mulcomposerespect.router.Routes
-import com.djx.mulcomposerespect.viewmodel.HomeViewModel
+import com.djx.mulcomposerespect.viewmodels.IndexVM
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun IndexScreen(
-    vm: HomeViewModel = koinViewModel(),
+    vm: IndexVM = koinViewModel(),
     go: (n: String) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
     LaunchedEffect(Unit) {
         vm.toast.collect { msg -> snackbarHostState.showSnackbar(msg) }
     }
     val title by vm.title.collectAsState()
-    val count by vm.count.collectAsState()
     val statusBarVisible by rememberStatusBarVisible()
     Scaffold(
         topBar = {
@@ -66,11 +58,6 @@ fun IndexScreen(
                         Text(title)
                     }
                 }, actions = {
-                    IconButton({
-                        go(Routes.TodoDemo.route)
-                    }) {
-                        Icon(Icons.AutoMirrored.Filled.List, null)
-                    }
                     IconButton(onClick = vm::toggleDark) {
                         val ic =
                             if (vm.isDark.value) Icons.Default.DarkMode else Icons.Default.LightMode
@@ -92,13 +79,6 @@ fun IndexScreen(
                     }
                 })
         },
-        floatingActionButton = {
-            IconButton({
-                go(Routes.Scan.route)
-            }) {
-                Icon(Icons.Default.QrCode, null)
-            }
-        },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
         }
@@ -106,20 +86,24 @@ fun IndexScreen(
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             item {
-                Text("Count $count", fontSize = 25.sp, fontWeight = FontWeight.Bold)
-            }
-            item {
                 TextButton({
-                    vm.add(10)
+                    go(Routes.Count.route)
                 }) {
-                    Text("Count++")
+                    Text("Count Storage Demo")
                 }
             }
             item {
                 TextButton({
-                    go(Routes.Detail.route)
+                    go(Routes.TodoList.route)
                 }) {
-                    Text("getData")
+                    Text("TodoList Demo")
+                }
+            }
+            item {
+                TextButton({
+                    go(Routes.WebView.route)
+                }) {
+                    Text("WebView Demo")
                 }
             }
             item {
@@ -127,6 +111,13 @@ fun IndexScreen(
                     go(Routes.ImageLoader.route)
                 }) {
                     Text("go ImagerLoader")
+                }
+            }
+            item {
+                TextButton({
+                    go(Routes.Scan.route)
+                }) {
+                    Text("Scan Demo")
                 }
             }
         }

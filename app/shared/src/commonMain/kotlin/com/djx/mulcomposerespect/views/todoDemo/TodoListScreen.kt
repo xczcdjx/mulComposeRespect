@@ -1,4 +1,4 @@
-package com.djx.mulcomposerespect.viewmodel.todoDemo
+package com.djx.mulcomposerespect.views.todoDemo
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Button
@@ -44,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.djx.mulcomposerespect.utils.ToastManager
+import com.djx.mulcomposerespect.viewmodels.TodoListVM
 import com.dokar.sonner.TextToastAction
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.launch

@@ -2,8 +2,9 @@ package com.djx.mulcomposerespect.router
 
 sealed class Routes(val route: String) {
     object Index: Routes("Index")
-    object Detail: Routes("Detail")
-    object TodoDemo: Routes("TodoDemo")
+    object WebView: Routes("WebView")
+    object Count: Routes("Count")
+    object TodoList: Routes("TodoList")
     object Scan: Routes("Scan")
     object ImageLoader: Routes("ImageLoader")
 }

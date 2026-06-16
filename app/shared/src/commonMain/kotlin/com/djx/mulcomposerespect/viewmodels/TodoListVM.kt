@@ -1,14 +1,14 @@
-package com.djx.mulcomposerespect.viewmodel.todoDemo
+package com.djx.mulcomposerespect.viewmodels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.djx.mulcomposerespect.services.ApiService
 import com.djx.mulcomposerespect.api.safeService
 import com.djx.mulcomposerespect.entities.TodoBody
 import com.djx.mulcomposerespect.entities.TodoCls
+import com.djx.mulcomposerespect.services.ApiService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,8 +16,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
-import kotlin.collections.emptyList
-
 
 @KoinViewModel
 class TodoListVM(
