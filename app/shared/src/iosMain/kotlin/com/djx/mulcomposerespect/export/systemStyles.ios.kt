@@ -2,19 +2,21 @@ package com.djx.mulcomposerespect.export
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import platform.UIKit.UIApplication
 import platform.UIKit.UIStatusBarAnimation
 import platform.UIKit.setStatusBarHidden
 
 actual object SystemStyles {
-    private val visibleState = mutableStateOf(true)
+    private val statusBarVisibleState = mutableStateOf(true)
     actual fun hideStatusBar() {
         UIApplication.sharedApplication.setStatusBarHidden(
             true,
             UIStatusBarAnimation.UIStatusBarAnimationFade
         )
-        visibleState.value = false
+        statusBarVisibleState.value = false
     }
 
     actual fun showStatusBar() {
@@ -22,17 +24,27 @@ actual object SystemStyles {
             false,
             UIStatusBarAnimation.UIStatusBarAnimationFade
         )
-        visibleState.value = true
+        statusBarVisibleState.value = true
     }
+
     actual fun toggleStatusBar() {
-        if (visibleState.value) {
+        if (statusBarVisibleState.value) {
             hideStatusBar()
         } else {
             showStatusBar()
         }
     }
 
-    fun state(): State<Boolean> = visibleState
+    actual fun enterFullScreen() = hideStatusBar()
+
+    actual fun exitFullScreen() = showStatusBar()
+
+    actual fun toggleFullScreen() {
+        if (!statusBarVisibleState.value) exitFullScreen()
+        else enterFullScreen()
+    }
+
+    fun statusBarState(): State<Boolean> = statusBarVisibleState
 }
 
 @Composable
@@ -41,5 +53,14 @@ actual fun SystemBarStyle(isDark: Boolean) {
 
 @Composable
 actual fun rememberStatusBarVisible(): State<Boolean> {
-    return SystemStyles.state()
+    return SystemStyles.statusBarState()
+}
+
+@Composable
+actual fun rememberFullScreen(): State<Boolean> {
+    return remember {
+        derivedStateOf {
+            !SystemStyles.statusBarState().value
+        }
+    }
 }

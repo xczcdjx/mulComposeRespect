@@ -1,18 +1,10 @@
 package com.djx.mulcomposerespect.views.scan
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import co.touchlab.kermit.Logger
@@ -27,22 +19,7 @@ import org.ncgroup.kscan.ScannerView
 @Composable
 fun ScanPage(back: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
-    Scaffold(topBar = {
-        TopAppBar(navigationIcon = {
-            IconButton({
-                back()
-            }) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
-            }
-        }, title = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text("Scan")
-            }
-        })
-    }) { paddingValues ->
+    Scaffold{ paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             val cameraPermission = rememberCameraPermissionState()
             Column {

@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalView
@@ -16,7 +17,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 actual object SystemStyles {
 
     private var activity: Activity? = null
-    private var isVisible = true
+    private val statusBarVisibleState = mutableStateOf(true)
     fun init(activity: Activity) {
         this.activity = activity
     }
@@ -28,7 +29,7 @@ actual object SystemStyles {
             act.window.decorView
         ).hide(WindowInsetsCompat.Type.statusBars())
 
-        isVisible = false
+        statusBarVisibleState.value = false
     }
 
     actual fun showStatusBar() {
@@ -38,16 +39,30 @@ actual object SystemStyles {
             act.window.decorView
         ).show(WindowInsetsCompat.Type.statusBars())
 
-        isVisible = true
+        statusBarVisibleState.value = true
     }
 
     actual fun toggleStatusBar() {
-        if (isVisible) {
+        if (statusBarVisibleState.value) {
             hideStatusBar()
         } else {
             showStatusBar()
         }
     }
+    actual fun enterFullScreen() {
+        hideStatusBar()
+    }
+
+    actual fun exitFullScreen() {
+        showStatusBar()
+    }
+
+    actual fun toggleFullScreen() {
+        if (!statusBarVisibleState.value) exitFullScreen()
+        else enterFullScreen()
+    }
+
+    fun statusBarState(): State<Boolean> = statusBarVisibleState
 }
 
 @Composable
@@ -74,21 +89,14 @@ actual fun SystemBarStyle(isDark: Boolean) {
 
 @Composable
 actual fun rememberStatusBarVisible(): State<Boolean> {
-    val view = LocalView.current
-    val visibleState = remember { mutableStateOf(true) }
+    return SystemStyles.statusBarState()
+}
 
-    DisposableEffect(view) {
-        ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
-            visibleState.value = insets.isVisible(WindowInsetsCompat.Type.statusBars())
-            insets
-        }
-
-        ViewCompat.requestApplyInsets(view)
-
-        onDispose {
-            ViewCompat.setOnApplyWindowInsetsListener(view, null)
+@Composable
+actual fun rememberFullScreen(): State<Boolean> {
+    return remember {
+        derivedStateOf {
+            !SystemStyles.statusBarState().value
         }
     }
-
-    return visibleState
 }

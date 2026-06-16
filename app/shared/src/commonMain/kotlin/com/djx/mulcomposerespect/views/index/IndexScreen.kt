@@ -29,7 +29,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import com.djx.mulcomposerespect.export.SystemStyles
-import com.djx.mulcomposerespect.export.rememberStatusBarVisible
+import com.djx.mulcomposerespect.export.rememberFullScreen
 import com.djx.mulcomposerespect.router.Routes
 import com.djx.mulcomposerespect.viewmodels.IndexVM
 import org.koin.compose.viewmodel.koinViewModel
@@ -44,7 +44,7 @@ fun IndexScreen(
         vm.toast.collect { msg -> snackbarHostState.showSnackbar(msg) }
     }
     val title by vm.title.collectAsState()
-    val statusBarVisible by rememberStatusBarVisible()
+    val fullScreen by rememberFullScreen()
     val listCom: List<RouterList> = listOf(
         RouterList(Routes.Count.route, "Count Storage Demo"),
         RouterList(Routes.TodoList.route, "TodoList Demo"),
@@ -72,16 +72,16 @@ fun IndexScreen(
                     }
                     IconButton(
                         onClick = {
-                            SystemStyles.toggleStatusBar()
+                            SystemStyles.toggleFullScreen()
                         }
                     ) {
                         Icon(
-                            imageVector = if (statusBarVisible) {
+                            imageVector = if (!fullScreen) {
                                 Icons.Default.Fullscreen
                             } else {
                                 Icons.Default.FullscreenExit
                             },
-                            contentDescription = if (statusBarVisible) "隐藏状态栏" else "显示状态栏"
+                            contentDescription = if (fullScreen) "隐藏状态栏" else "显示状态栏"
                         )
                     }
                 })

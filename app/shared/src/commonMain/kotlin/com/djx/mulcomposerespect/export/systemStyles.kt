@@ -7,9 +7,16 @@ expect object SystemStyles {
     fun hideStatusBar()
     fun showStatusBar()
     fun toggleStatusBar()
+
+    fun enterFullScreen()
+    fun exitFullScreen()
+    fun toggleFullScreen()
 }
 @Composable
 expect fun SystemBarStyle(isDark: Boolean)
 
 @Composable
 expect fun rememberStatusBarVisible(): State<Boolean>
+
+@Composable
+expect fun rememberFullScreen(): State<Boolean>
