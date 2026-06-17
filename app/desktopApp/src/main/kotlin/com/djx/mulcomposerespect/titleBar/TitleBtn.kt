@@ -6,7 +6,10 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -19,7 +22,6 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.unit.dp
-import com.djx.mulcomposerespect.export.rememberFullScreen
 
 enum class MacButtonType {
     Close,
@@ -28,13 +30,53 @@ enum class MacButtonType {
 }
 
 @Composable
-fun MacWindowButton(
+fun MacButtons(
+    onClose: () -> Unit,
+    onMinimize: () -> Unit,
+    onMaximize: () -> Unit,
+    txtColor: Color = Color.Black,
+    isFull: Boolean = false
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        CanvasButton(
+            color = Color(0xFFFF5F57),
+            type = MacButtonType.Close,
+            onClick = onClose,
+            txtColor
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        CanvasButton(
+            color = Color(0xFFFFBD2E),
+            type = MacButtonType.Minimize,
+            onClick = onMinimize,
+            txtColor
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        CanvasButton(
+            color = Color(0xFF28C840),
+            type = MacButtonType.Maximize,
+            onClick = onMaximize,
+            txtColor,
+            isFull
+        )
+    }
+}
+
+@Composable
+fun CanvasButton(
     color: Color,
     type: MacButtonType,
     onClick: () -> Unit,
+    txtColor: Color = Color.Black,
+    isFull: Boolean = false
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val isFull = rememberFullScreen()
     val isHovered by interactionSource.collectIsHoveredAsState()
     Box(
         modifier = Modifier
@@ -53,20 +95,19 @@ fun MacWindowButton(
             drawCircle(color = color)
 
             if (isHovered) {
-                val iconColor = Color(0xAA000000)
                 val strokeWidth = 1.4.dp.toPx()
 
                 when (type) {
                     MacButtonType.Close -> {
                         drawLine(
-                            color = iconColor,
+                            color = txtColor,
                             start = Offset(size.width * 0.32f, size.height * 0.32f),
                             end = Offset(size.width * 0.68f, size.height * 0.68f),
                             strokeWidth = strokeWidth,
                             cap = StrokeCap.Round
                         )
                         drawLine(
-                            color = iconColor,
+                            color = txtColor,
                             start = Offset(size.width * 0.68f, size.height * 0.32f),
                             end = Offset(size.width * 0.32f, size.height * 0.68f),
                             strokeWidth = strokeWidth,
@@ -76,7 +117,7 @@ fun MacWindowButton(
 
                     MacButtonType.Minimize -> {
                         drawLine(
-                            color = iconColor,
+                            color = txtColor,
                             start = Offset(size.width * 0.28f, size.height * 0.50f),
                             end = Offset(size.width * 0.72f, size.height * 0.50f),
                             strokeWidth = strokeWidth,
@@ -85,10 +126,10 @@ fun MacWindowButton(
                     }
 
                     MacButtonType.Maximize -> {
-                        if (isFull.value) {
-                            drawExitFullScreenTriangles(iconColor)
+                        if (isFull) {
+                            drawExitFullScreenTriangles(txtColor)
                         } else {
-                            drawEnterFullScreenTriangles(iconColor)
+                            drawEnterFullScreenTriangles(txtColor)
                         }
                     }
                 }

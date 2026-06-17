@@ -1,10 +1,6 @@
 package com.djx.mulcomposerespect
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,29 +9,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Fullscreen
+import androidx.compose.material.icons.filled.FullscreenExit
 import androidx.compose.material.icons.filled.Minimize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
 import com.djx.mulcomposerespect.export.SystemStyles
 import com.djx.mulcomposerespect.export.rememberFullScreen
-import com.djx.mulcomposerespect.titleBar.MacButtonType
-import com.djx.mulcomposerespect.titleBar.MacWindowButton
+import com.djx.mulcomposerespect.titleBar.MacButtons
 
 @Composable
 fun WindowScope.DesktopTitleBar(
@@ -45,6 +43,8 @@ fun WindowScope.DesktopTitleBar(
     onMaximize: () -> Unit = {}
 ) {
     val isDark by SystemStyles.darkStatus
+    val txtColor = if (isDark) Color.White else Color.Black
+    val isFull = rememberFullScreen()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,10 +54,12 @@ fun WindowScope.DesktopTitleBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (isMacOs()) {
-            MacWindowButtons(
+            MacButtons(
                 onClose = onClose,
                 onMinimize = onMinimize,
-                onMaximize = onMaximize
+                onMaximize = onMaximize,
+                txtColor,
+                isFull=isFull.value
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -66,21 +68,15 @@ fun WindowScope.DesktopTitleBar(
                 modifier = Modifier.weight(1f).fillMaxHeight()
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
-                        .combinedClickable(
-                            interactionSource = null,
-                            onClick = {},
-                            indication = null,
-                            onDoubleClick = {
-                                SystemStyles.toggleFullScreen()
-                            }
-                        ),
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight().titleBarDoubleClick {
+                        SystemStyles.toggleFullScreen()
+                    },
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = title,
                         modifier = Modifier.offset(x = (-56).dp),
-                        color = if (isDark) Color.White else Color.Black
+                        color = txtColor
                     )
                 }
             }
@@ -88,23 +84,19 @@ fun WindowScope.DesktopTitleBar(
 //            Spacer(modifier = Modifier.width(56.dp))
         } else {
             WindowDraggableArea(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).fillMaxHeight()
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth()
-                        .combinedClickable(
-                            interactionSource = null,
-                            onClick = {},
-                            indication = null,
-                            onDoubleClick = {
-                                SystemStyles.toggleFullScreen()
-                            }
-                        ),
+                        .fillMaxHeight()
+                        .titleBarDoubleClick {
+                            SystemStyles.toggleFullScreen()
+                        },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = title,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = txtColor
                     )
                 }
             }
@@ -112,16 +104,17 @@ fun WindowScope.DesktopTitleBar(
             IconButton(onClick = onMinimize) {
                 Icon(
                     imageVector = Icons.Default.Minimize,
+                    modifier = Modifier.offset(y = (-7.5).dp),
                     contentDescription = "最小化",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = txtColor
                 )
             }
 
             IconButton(onClick = onMaximize) {
                 Icon(
-                    imageVector = Icons.Default.Fullscreen,
+                    imageVector = if (isFull.value) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,
                     contentDescription = "最大化",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = txtColor
                 )
             }
 
@@ -129,43 +122,28 @@ fun WindowScope.DesktopTitleBar(
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "关闭",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = txtColor
                 )
             }
         }
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun MacWindowButtons(
-    onClose: () -> Unit,
-    onMinimize: () -> Unit,
-    onMaximize: () -> Unit
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        MacWindowButton(
-            color = Color(0xFFFF5F57),
-            type = MacButtonType.Close,
-            onClick = onClose
-        )
+private fun Modifier.titleBarDoubleClick(
+    onDoubleClick: () -> Unit
+): Modifier {
+    val lastClickTime = remember { mutableLongStateOf(0L) }
 
-        Spacer(modifier = Modifier.width(8.dp))
-
-        MacWindowButton(
-            color = Color(0xFFFFBD2E),
-            type = MacButtonType.Minimize,
-            onClick = onMinimize
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        MacWindowButton(
-            color = Color(0xFF28C840),
-            type = MacButtonType.Maximize,
-            onClick = onMaximize,
-        )
+    return this.onPointerEvent(PointerEventType.Press) {
+        val now = System.currentTimeMillis()
+        if (now - lastClickTime.longValue < 350L) {
+            onDoubleClick()
+            lastClickTime.longValue = 0L
+        } else {
+            lastClickTime.longValue = now
+        }
     }
 }
 
