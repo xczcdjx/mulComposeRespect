@@ -23,7 +23,7 @@ fun LayoutCom(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Count Storage Demo")
+                    Text(title)
                 },
                 navigationIcon = {
                     IconButton({
