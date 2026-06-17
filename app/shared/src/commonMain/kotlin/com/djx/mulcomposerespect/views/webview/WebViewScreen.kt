@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,7 +21,7 @@ import com.multiplatform.webview.web.rememberWebViewState
 
 @Composable
 fun WebViewScreen(back:()-> Unit={}) {
-    val state = rememberWebViewState(url = "https://transient.cloud")
+    val state = rememberWebViewState(url = "https://www.google.com.hk/")
     val navigator = rememberWebViewNavigator()
 
     Column(
@@ -32,7 +33,7 @@ fun WebViewScreen(back:()-> Unit={}) {
                 if (navigator.canGoBack) {
                     IconButton(onClick = { navigator.navigateBack() }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }
@@ -42,7 +43,7 @@ fun WebViewScreen(back:()-> Unit={}) {
                 IconButton({
                     back()
                 }){
-                    Icon(Icons.Default.ArrowBack,null)
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack,null)
                 }
             }
         )
