@@ -159,7 +159,8 @@ Open the project in Android Studio and run the Android application module.
 You can also build from the command line:
 
 ```bash
-./gradlew :app:androidApp:assembleDebug
+./gradlew :app:androidApp:installDebug && \
+adb shell am start -n com.djx.mulcomposerespect/.MainActivity
 ```
 
 ### iOS
