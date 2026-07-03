@@ -13,7 +13,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     // ksp
     alias(libs.plugins.ksp)
-    id("com.djx.i18nzeal") version "0.1.0"
+    id("io.github.xczcdjx.i18nzeal") version "0.1.0"
 }
 
 kotlin {
@@ -137,7 +137,7 @@ kotlin {
             implementation(libs.coil.network.ktor3)
             implementation(libs.coil.svg)
             //  i18n
-            implementation("com.djx.i18nzeal:i18n-runtime:0.1.0")
+            implementation("io.github.xczcdjx:i18n-runtime:0.1.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
