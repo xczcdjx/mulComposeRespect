@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.djx.i18n.runtime.tr
+import com.djx.mulcomposerespect.i18n.I18nKeys
 import com.djx.mulcomposerespect.layout.LayoutCom
 import com.djx.mulcomposerespect.utils.AsyncImagePlaceholder
 import com.djx.mulcomposerespect.utils.CachedImagePlaceholder
@@ -15,7 +17,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun ImageLoaderScreen(modifier: Modifier = Modifier, back: () -> Unit = {}) {
     val rSvg = "https://cdn.docschina.org/home/logo/webpack-offical.svg"
-    LayoutCom("ImageLoader", back) {
+    LayoutCom(tr(I18nKeys.router_imageLoader), back) {
         AsyncImagePlaceholder(
             url = rSvg,
             contentDescription = null,

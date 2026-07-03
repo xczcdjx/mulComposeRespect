@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.djx.i18n.runtime.tr
+import com.djx.mulcomposerespect.i18n.I18nKeys
 import com.multiplatform.webview.web.LoadingState
 import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.rememberWebViewNavigator
@@ -28,7 +30,7 @@ fun WebViewScreen(back:()-> Unit={}) {
         modifier = Modifier.fillMaxSize()
     ) {
         TopAppBar(
-            title = { Text(text = state.pageTitle ?: "WebView Sample") },
+            title = { Text(text = state.pageTitle ?: tr(I18nKeys.router_webview)) },
             navigationIcon = {
                 if (navigator.canGoBack) {
                     IconButton(onClick = { navigator.navigateBack() }) {

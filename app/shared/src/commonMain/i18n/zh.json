@@ -1,0 +1,18 @@
+{
+  "app": {
+    "name": "KMP 拾"
+  },
+  "lang": {
+    "system": "跟随系统",
+    "en": "英语",
+    "zh": "中文"
+  },
+  "router": {
+    "count": "计数存储案例",
+    "todoList": "代办事项案例",
+    "scan": "扫码案例",
+    "webview": "网页内嵌案例",
+    "imageLoader": "异步图片加载案例"
+  },
+  "count": "数,{0}"
+}

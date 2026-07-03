@@ -1,0 +1,18 @@
+{
+  "app": {
+    "name": "MulComposeRespect"
+  },
+  "lang": {
+    "system": "System",
+    "en": "English",
+    "zh": "Chinese"
+  },
+  "router": {
+    "count": "Count Storage Demo",
+    "todoList": "TodoList Demo",
+    "scan": "Scan Demo",
+    "webview": "WebView Demo",
+    "imageLoader": "ImagerLoader Demo"
+  },
+ "count": "Count,{0}"
+}

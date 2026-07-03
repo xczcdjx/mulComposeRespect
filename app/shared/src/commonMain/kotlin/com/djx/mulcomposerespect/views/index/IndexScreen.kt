@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Fullscreen
 import androidx.compose.material.icons.filled.FullscreenExit
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -28,8 +29,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import com.djx.i18n.runtime.AppLangState
+import com.djx.i18n.runtime.trnI18n
+import com.djx.mulcomposerespect.components.LangSwitch
 import com.djx.mulcomposerespect.export.SystemStyles
 import com.djx.mulcomposerespect.export.rememberFullScreen
+import com.djx.mulcomposerespect.i18n.I18nKeys
+import com.djx.mulcomposerespect.i18n.Lang_En
+import com.djx.mulcomposerespect.i18n.Lang_Zh
 import com.djx.mulcomposerespect.router.Routes
 import com.djx.mulcomposerespect.viewmodels.IndexVM
 import org.koin.compose.viewmodel.koinViewModel
@@ -46,11 +53,11 @@ fun IndexScreen(
     val title by vm.title.collectAsState()
     val fullScreen by rememberFullScreen()
     val listCom: List<RouterList> = listOf(
-        RouterList(Routes.Count.route, "Count Storage Demo"),
-        RouterList(Routes.TodoList.route, "TodoList Demo"),
-        RouterList(Routes.Scan.route, "Scan Demo"),
-        RouterList(Routes.WebView.route, "WebView Demo"),
-        RouterList(Routes.ImageLoader.route, "Go ImagerLoader"),
+        RouterList(Routes.Count.route, I18nKeys.router_count),
+        RouterList(Routes.TodoList.route, I18nKeys.router_todoList),
+        RouterList(Routes.Scan.route, I18nKeys.router_scan),
+        RouterList(Routes.WebView.route, I18nKeys.router_webview),
+        RouterList(Routes.ImageLoader.route, I18nKeys.router_imageLoader),
     )
     Scaffold(
         topBar = {
@@ -84,6 +91,7 @@ fun IndexScreen(
                             contentDescription = if (fullScreen) "隐藏状态栏" else "显示状态栏"
                         )
                     }
+                    LangSwitch()
                 })
         },
         snackbarHost = {
@@ -102,7 +110,7 @@ fun IndexScreen(
                             append("${it + 1}.")
                         }
                         append(" ")
-                        append(lc.title)
+                        append(lc.title.trnI18n())
                     })
                 }
             }

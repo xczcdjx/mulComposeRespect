@@ -11,9 +11,14 @@ import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.djx.i18n.runtime.AppLangState
+import com.djx.i18n.runtime.AppLocalLangProvider
+import com.djx.i18n.runtime.I18nRuntime
+import com.djx.i18n.runtime.interfaces.I18nEngine
 import com.djx.mulcomposerespect.app.AppState
 import com.djx.mulcomposerespect.export.SystemBarStyle
 import com.djx.mulcomposerespect.export.isDesktop
+import com.djx.mulcomposerespect.i18n.I18nZeal
 import com.djx.mulcomposerespect.router.Router
 import com.djx.mulcomposerespect.theme.AppTheme
 import com.djx.mulcomposerespect.utils.ToastManager
@@ -28,6 +33,8 @@ fun App() {
     val appState= koinInject<AppState>()
     val isDark by appState.isDark.collectAsState()
     SystemBarStyle(isDark)
+    // i18n tr trn 函数对象注入
+    I18nRuntime.init(I18nZeal)
     AppTheme(darkTheme = isDark) {
         Surface {
             val toaster = rememberToasterState()
@@ -43,9 +50,13 @@ fun App() {
                     )
                 }
             }
-            Box(modifier = Modifier.padding(top = if (isDesktop) 36.dp else 0.dp)) {
-                Router()
-                Toaster(state = toaster, alignment = Alignment.TopCenter)
+            CompositionLocalProvider(
+                AppLocalLangProvider provides AppLangState.current.value
+            ){
+                Box(modifier = Modifier.padding(top = if (isDesktop) 36.dp else 0.dp)) {
+                    Router()
+                    Toaster(state = toaster, alignment = Alignment.TopCenter)
+                }
             }
         }
     }

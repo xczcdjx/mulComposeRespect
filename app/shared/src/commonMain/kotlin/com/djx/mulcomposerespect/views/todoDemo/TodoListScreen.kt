@@ -42,6 +42,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.djx.i18n.runtime.tr
+import com.djx.mulcomposerespect.i18n.I18nKeys
 import com.djx.mulcomposerespect.utils.ToastManager
 import com.djx.mulcomposerespect.viewmodels.TodoListVM
 import com.dokar.sonner.TextToastAction
@@ -73,7 +75,7 @@ fun TodoListScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    Text("TodoListDemo")
+                    Text(tr(I18nKeys.router_todoList))
                 }
             }, actions = {
                 IconButton({

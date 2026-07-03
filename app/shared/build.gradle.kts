@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     // ksp
     alias(libs.plugins.ksp)
+    id("com.djx.i18nzeal") version "0.1.0"
 }
 
 kotlin {
@@ -54,6 +55,11 @@ kotlin {
     }
 
     sourceSets {
+        commonMain {
+            kotlin.srcDir(
+                layout.buildDirectory.dir("generated/i18nzeal/commonMain/kotlin")
+            )
+        }
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             // Ktor Android engine
@@ -130,6 +136,8 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor3)
             implementation(libs.coil.svg)
+            //  i18n
+            implementation("com.djx.i18nzeal:i18n-runtime:0.1.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -147,6 +155,12 @@ kotlin {
         kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
     }
 }
+
+i18nZeal {
+    sourceLocales=listOf("en","zh")
+    packageName="com.djx.mulcomposerespect.i18n"
+}
+
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
 
@@ -180,4 +194,8 @@ tasks.register("genComposeRes") {
     description = "Generate Compose Multiplatform Res class"
 
     dependsOn("generateComposeResClass")
+}
+
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    dependsOn(tasks.named("generateI18nKt"))
 }
